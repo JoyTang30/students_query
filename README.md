@@ -1,1 +1,1 @@
-# students_query
+# DjangoQueryingLab_PY_Starter
