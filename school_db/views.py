@@ -145,6 +145,11 @@ SELECT `school_db_instructor`.`id`,
 # Print the instructors name and courses that he belongs to in the terminal
 # (Do not hard code his name in the print)
 def problem_three(request):
+    teacher= Instructor.objects.get(pk=2)
+    coursework=Course.objects.filter(instructor_id= 2).all()
+    for course in coursework:
+      print(f"Professor Name {teacher.first_name} {teacher.last_name}" )
+      print(f" Courses {course.name}")
 
     return complete(request)
 
@@ -191,6 +196,13 @@ SELECT `school_db_instructor`.`id`,
 
 # Get the count of students, courses, and instructors and print them in the terminal
 def problem_four(request):
+    kids= Student.objects.all().count()
+    subject= Course.objects.all().count()
+    teachers= Instructor.objects.all().count()
+    
+    print(kids)
+    print(subject)
+    print(teachers)
 
     return complete(request)
 
@@ -235,6 +247,17 @@ SELECT COUNT(*) AS `__count`
 # Print the new student's id, full name, year, and gpa to the terminal
 # NOTE every time you execute this function a duplicate student will be created with a different primary key number
 def problem_five(request):
+    new_student = Student()
+    new_student.first_name = 'Amelia'
+    new_student.last_name = 'Tang'
+    new_student.year = 12
+    new_student.gpa = 4.0
+    new_student.save()
+
+    print(new_student.first_name)
+    print(new_student.last_name)
+    print(new_student.year)
+    print(new_student.gpa)
 
     return complete(request)
 
@@ -267,9 +290,12 @@ VALUES ('Kyle', 'Harwood', 9, 3.0)
 # Then query the studets table to get that student by their id
 # Print the new student's id, full name, and gpa to the terminal
 def problem_six(request):
+    Student.objects.filter(pk=11).update(gpa= 4.5)
+    my_chunky_monkey = Student.objects.get(pk=11)
+    print (f' ID {my_chunky_monkey.id} Full Name {my_chunky_monkey.first_name} {my_chunky_monkey.last_name} GPA {my_chunky_monkey.gpa} ')
 
     # Make sure to set this equal to the primary key of the row you just created!
-    student_id = 11
+    
 
     return complete(request)
 
@@ -316,12 +342,15 @@ LIMIT 21
 def problem_seven(request):
 
     # Make sure to set this equal to the primary key of the row you just created!
-    student_id = 11
+    
 
     try:
-        student = Student.objects.get(pk=student_id)
+      Student.objects.get(pk=10)
     except ObjectDoesNotExist:
-        print('Great! It failed and couldnt find the object because we deleted it!')
+      print('Great! It failed and couldnt find the object because we deleted it!')
+    finally:
+      Student.objects.filter(pk=10).delete()
+
 
     return complete(request)
 
