@@ -58,7 +58,11 @@ SELECT `school_db_student`.`id`,
 # Order the data by highest GPAs first (descending).
 # Print out each student's full name and gpa to the terminal
 def problem_one(request):
-    print("hello hello mushi mushi")
+  #This is my set of rows which I am filtering on by descending order of gpa
+    students= Student.objects.filter(gpa__gt=3.0).order_by('-gpa').all()
+    #This is my for loop printing out the values from each individual row
+    for student in students:
+      print(f" First Name {student.first_name} Last Name {student.last_name} GPA {student.gpa} ")
     return complete(request)
 
 
@@ -97,7 +101,10 @@ SELECT `school_db_student`.`id`,
 # Order by hire date ascending
 # Print out the instructor's full name and hire date to the terminal
 def problem_two(request):
-
+    instructors = Instructor.objects.filter(hire_date__year__lt=2010).order_by('hire_date').all()
+    for teachers in instructors:
+      print( F"First Name {teachers.first_name} Last name {teachers.last_name}")
+      print(F"Hire Date {teachers.hire_date}")
     return complete(request)
 
 
